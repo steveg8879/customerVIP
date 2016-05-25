@@ -1,0 +1,28 @@
+<?php
+$isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+if ($isLoggedIn) :
+    $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+    if ($customerGroupId == 4) :
+        echo $this->getLayout()->createBlock('cms/block')->setBlockId('customerVIP')->toHtml();
+        echo "<script type=\"text/javascript\" src=\"/js/customer_VIP/customerVIPscripts.js\"></script>";
+    endif;
+endif;
+
+
+$quote = Mage::getSingleton('checkout/session')->getQuote();
+$cartItems = $quote->getAllVisibleItems();
+foreach ($cartItems as $item) {
+    $productId = $item->getProductId();
+    $product = Mage::getModel('catalog/product')->load($productId);
+    if ($productId == 26538 || $productId == 26539) :
+        echo $this->getLayout()->createBlock('cms/block')->setBlockId('customerVIP')->toHtml();
+        echo "<script type=\"text/javascript\" src=\"/js/customer_VIP/customerVIPscripts.js\"></script>";
+    endif;
+}
+
+
+?>
+
+
+
+
